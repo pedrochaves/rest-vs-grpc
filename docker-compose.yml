@@ -1,0 +1,22 @@
+version: "2"
+services:
+  server:
+    build: ./server
+    image: rest_grpc_server
+    command: python /app/server.py
+    ports:
+      - "50051:50051"
+    volumes:
+      - ./server:/app
+      - ./protos:/protos
+    working_dir: /app
+    environment:
+      - PYTHONPATH=/app/app/grpc
+  client:
+    build: ./client
+    image: rest_grpc_client
+    command: php /app/client.php
+    volumes:
+      - ./client:/app
+      - ./protos:/protos
+    working_dir: /app
