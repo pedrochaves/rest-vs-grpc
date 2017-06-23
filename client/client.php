@@ -12,7 +12,7 @@ $request = new CalculateRequest();
 $request->setFirstNumber($n1);
 $request->setLastNumber($n2);
 
-$client = new CalculatorClient('172.18.0.1:50051', [
+$client = new CalculatorClient('grpc-server:50051', [
     'credentials' => ChannelCredentials::createInsecure(),
 ]);
 
@@ -32,10 +32,11 @@ switch ($operation) {
     default:
         throw new InvalidArgumentException('Invalid operation! Must be + - * /');
 }
-list($reply, $status) = $client->$operationName($request)->wait();
 
-if (is_null($reply)) {
+list($reply, $status) = $client->$operationName($request)->wait();
+if ($reply === null) {
     echo sprintf('gRPC error[%d]: %s', $status->code, $status->details);
     exit(1);
 }
-var_dump($reply, $status);
+
+echo 'The answer is ' . $reply->getAnswer();

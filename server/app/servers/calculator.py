@@ -1,10 +1,10 @@
-from app.grpc import calculator_pb2
-from app.grpc import calculator_pb2_grpc
+from app.grpc.calculator_pb2 import CalculatorServicer, CalculateResponse
 
 
-class CalculatorServer(calculator_pb2_grpc.CalculatorServicer):
+class CalculatorServer(CalculatorServicer):
+
     def _response(self, answer):
-        return calculator_pb2_grpc.CalculatorResponse(answer=answer)
+        return CalculateResponse(answer=answer)
 
     def Add(self, request, context):
         return self._response(request.first_number + request.last_number)

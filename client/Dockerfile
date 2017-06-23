@@ -9,9 +9,6 @@ RUN apt-get update && \
 RUN pecl install grpc && \
     docker-php-ext-enable grpc
 
-RUN git clone https://github.com/google/protobuf /tmp/protobuf && \
-    cd /tmp/protobuf && make && make install && ldconfig
-
 # Sets up composer
 RUN curl -sS https://getcomposer.org/installer | php
 RUN mv /app/composer.phar /usr/local/bin/composer

@@ -1,7 +1,7 @@
 import time
+import grpc
 
 from concurrent import futures
-import grpc
 
 from app.servers import calculator
 from app.grpc import calculator_pb2_grpc
@@ -19,5 +19,7 @@ def serve():
     except KeyboardInterrupt:
         server.stop(0)
 
+
 if __name__ == '__main__':
+    print("Serving calculator on gRPC server...")
     serve()
